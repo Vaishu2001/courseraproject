@@ -1,0 +1,74 @@
+# courseraproject
+Mini-project description - “Guess the number” game
+One of the simplest two-player games is “Guess the number”. The first player thinks of a secret number in some known range while the second player attempts to guess the number. After each guess, the first player answers either “Higher”, “Lower” or “Correct!” depending on whether the secret number is higher, lower or equal to the guess. In this project, you will build a simple interactive program in Python where the computer will take the role of the first player while you play as the second player.
+
+When discussing ranges in this mini-project, we will follow the standard Python convention of including the low end of the range and excluding the high end of the range. Mathematically, we will express ranges via the notation \color{red}{\verb|[low, high)|}[low, high). The square bracket of the left of the range indicates that the corresponding bound should be included. The left parenthesis on the right of the range indicates that corresponding bound should be excluded. For example, the range \color{red}{\verb|[0, 3)|}[0, 3) consists of numbers starting at 0 up to, but not including 3. In other words 0, 1, and 2.
+
+You will interact with your program using an input field and several buttons. For this project, we will ignore the canvas and print the computer's responses in the console. Building an initial version of your project that prints information in the console is a development strategy that you should use in later projects as well. Focusing on getting the logic of the program correct before trying to make it display the information in some “nice” way on the canvas usually saves lots of time since debugging logic errors in graphical output can be tricky.
+
+import simplegui
+import random
+# helper function to start and restart the game
+def new_game():    
+    global secret_number
+    secret_number = random.randrange(0,100)
+    print "New Game. Range is from 0-100"
+    print "Number of remaining guesses is 7"
+    print
+    global count
+    count = 7
+
+# event handlers for control panel
+def range100():
+    # button that changes the range to [0,100) and starts a new game 
+    new_game()
+    
+def range1000():
+    # button that changes the range to [0,1000) and starts a new game     
+    global secret_number
+    secret_number = random.randrange(0,1000)
+    print "New Game. Range is from 0-1000"
+    print "Number of remaining guesses is 10"
+    print
+    global count
+    count = 10
+
+def input_guess(guess):
+    # main game logic goes here	
+    global count
+    if count > 1:
+        player_number = int(guess)
+        print "Guess was "+guess
+        if player_number < secret_number:
+            print "Higher!"
+            count = count - 1
+            print "Number of remaining guesses is "+str(count)
+        elif player_number > secret_number:
+            print "Lower!"
+            count = count - 1
+            print "Number of remaining guesses is "+str(count)
+        else:
+            print "correct!"
+            print "You have won !!"
+            print
+            new_game()        
+        print
+    else:
+        count = count - 1
+        print "Guess was "+guess
+        print "Number of remaining guesses is "+str(count)
+        print "You ran out of guesses! The number was "+str(secret_number)
+        print 
+        new_game()
+
+# creation of frame
+frame = simplegui.create_frame("Guess the Number",300,300)
+frame.add_button("Range is [0,100)",range100)
+frame.add_button("Range is [0,1000)",range1000)
+frame.add_input("Enter the number",input_guess,100)
+
+# calling new_game 
+new_game()
+
+
+
