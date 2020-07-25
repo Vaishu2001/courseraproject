@@ -86,11 +86,11 @@ def rpsls(player_choice):
         print("enter the values again!!!")
     
 # test your code - THESE CALLS MUST BE PRESENT IN YOUR SUBMITTED CODE
-#rpsls("rock")
+rpsls("rock")
 rpsls("lizard")
-#rpsls("paper")
-#rpsls("lizard")
-#rpsls("scissors")
+rpsls("paper")
+rpsls("lizard")
+rpsls("scissors")
 
 
 
